@@ -15,6 +15,7 @@ public class Board
             foreach (List<Tile> l in _board) foreach (Tile t in l) yield return t;
         }
     }
+    public int MinesRemaining => AllTiles.Where(x => x.Flag == Tile.FlagStatus.Flagged).Count();
     public Board(int xDimension, int yDimension)
     {
         for(int i = 0; i < xDimension; i++)
@@ -24,7 +25,7 @@ public class Board
             {
                 Tile newTile = GameObject.Instantiate(Game.TileObject, new Vector3(i, j), Quaternion.identity).GetComponent<Tile>();
                 _board[i].Add(newTile);
-                newTile.Init(Mathf.RoundToInt(UnityEngine.Random.value) == 1 ? true : false);
+                newTile.Init(i, j, Mathf.RoundToInt(UnityEngine.Random.value) == 1);
             }
         }
         foreach(Tile t in AllTiles)

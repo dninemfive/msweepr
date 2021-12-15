@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
             Destroy(this);
             return;
         }
+        Instance = this;
         Board = new Board(10, 10);
     }
     // Update is called once per frame

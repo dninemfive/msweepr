@@ -9,6 +9,8 @@ public class Tile : MonoBehaviour
     public IEnumerable<Tile> Neighbors => _neighbors;
     private List<Tile> _neighbors = new List<Tile>();
     public int NeighborMineCount => Neighbors.Where(x => x.IsMine).Count();
+    public Board Board => Game.Board;
+    public int X, Y;
     public FlagStatus Flag;
     public enum FlagStatus
     {
@@ -16,7 +18,7 @@ public class Tile : MonoBehaviour
         Flagged,
         Question
     }
-    public void Init(bool isMine)
+    public void Init(int x, int y, bool isMine)
     {
         IsMine = isMine;
     }
@@ -28,7 +30,7 @@ public class Tile : MonoBehaviour
             for(int j = -1; j <= 1; j++)
             {
                 if (i == 0 && j == 0) continue;
-                Tile item = Game.Board[i, j];
+                Tile item = Board[i, j];
                 if (item != null)
                 {
                     _neighbors.Add(item);
