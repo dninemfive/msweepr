@@ -6,8 +6,21 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public bool IsMine { get; private set; } = false;
-    public IEnumerable<Tile> Neighbors => _neighbors;
-    private List<Tile> _neighbors = new List<Tile>();
+    public IEnumerable<Tile> Neighbors
+    {
+        get
+        {
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (i == 0 && j == 0) continue;
+                    Tile item = Board[i, j];
+                    if (item != null) yield return item;
+                }
+            }
+        }
+    }
     public int NeighborMineCount => Neighbors.Where(x => x.IsMine).Count();
     public Board Board => Game.Board;
     public int X, Y;
@@ -21,22 +34,6 @@ public class Tile : MonoBehaviour
     public void Init(int x, int y, bool isMine)
     {
         IsMine = isMine;
-    }
-    public void FindNeighbors()
-    {
-        _neighbors.Clear();
-        for(int i = -1; i <= 1; i++)
-        {
-            for(int j = -1; j <= 1; j++)
-            {
-                if (i == 0 && j == 0) continue;
-                Tile item = Board[i, j];
-                if (item != null)
-                {
-                    _neighbors.Add(item);
-                }
-            }
-        }
     }
     public void OnClicked()
     {
