@@ -14,5 +14,9 @@ public class Game : MonoBehaviour
     {
 
     }
-    public static void Over() { }
+    public static void SetUp()
+    {
+
+    }
+    public static void End() { }
 }
