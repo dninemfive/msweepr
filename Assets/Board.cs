@@ -22,9 +22,22 @@ public class Board
             _board.Add(new List<Tile>());
             for(int j = 0; j < yDimension; j++)
             {
-                GameObject newTile = GameObject.Instantiate(Game.TileObject, new Vector3(i, j), Quaternion.identity);
-                _board[i].Add(newTile.GetComponent<Tile>());
+                Tile newTile = GameObject.Instantiate(Game.TileObject, new Vector3(i, j), Quaternion.identity).GetComponent<Tile>();
+                _board[i].Add(newTile);
+                newTile.Init(Mathf.RoundToInt(UnityEngine.Random.value) == 1 ? true : false);
             }
+        }
+        foreach(Tile t in AllTiles)
+        {
+            t.FindNeighbors();
+        }
+    }
+    public Tile this[int x, int y]
+    {
+        get
+        {
+            if ((x >= 0 && x < _board.Count) && (y >= 0 && y < _board[x].Count)) return _board[x][y];
+            return null;
         }
     }
 }
