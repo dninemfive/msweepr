@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
@@ -24,8 +25,10 @@ public class Tile : MonoBehaviour
     }
     public int NeighborMineCount => Neighbors.Where(x => x.IsMine).Count();
     public Board Board => Game.Board;
-    public int X, Y;
+    public int X { get; private set; }
+    public int Y { get; private set; }
     public FlagStatus Flag;
+    public Text Text;
     public enum FlagStatus
     {
         None,
@@ -34,6 +37,8 @@ public class Tile : MonoBehaviour
     }
     public void Init(int x, int y, bool isMine)
     {
+        X = x;
+        Y = y;
         IsMine = isMine;
     }
     void OnMouseDown()
@@ -52,6 +57,7 @@ public class Tile : MonoBehaviour
         }
         if(NeighborMineCount > 0)
         {
+            Text.text = "" + NeighborMineCount;
             return;
         }
         foreach (Tile t in Neighbors)
