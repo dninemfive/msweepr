@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
                 for (int j = -1; j <= 1; j++)
                 {
                     if (i == 0 && j == 0) continue;
-                    Tile item = Board[X + i, X + j];
+                    Tile item = Board[X + i, Y + j];
                     if (item != null) yield return item;
                 }
             }
