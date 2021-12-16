@@ -26,7 +26,7 @@ public class Board
             {
                 Tile newTile = GameObject.Instantiate(Game.TileObject, new Vector3(i, j), Quaternion.identity).GetComponent<Tile>();
                 _board[i].Add(newTile);
-                newTile.Init(i, j, Mathf.RoundToInt(UnityEngine.Random.value) == 1);
+                newTile.Init(i, j, (i * j) % 7 == 0);
             }
         }
         CenterBoardInCamera(xDimension, yDimension);

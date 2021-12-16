@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
                 for (int j = -1; j <= 1; j++)
                 {
                     if (i == 0 && j == 0) continue;
-                    Tile item = Board[i, j];
+                    Tile item = Board[X + i, X + j];
                     if (item != null) yield return item;
                 }
             }
@@ -50,8 +50,11 @@ public class Tile : MonoBehaviour
         if (revealed) return;
         revealed = true;
         transform.Rotate(new Vector3(0, 0, 180));
+        // rotate the text to keep it right-side-up
+        Text.transform.Rotate(new Vector3(0, 0, 180));
         if (IsMine)
         {
+            Text.text = "*";
             Game.End();
             return;
         }
