@@ -35,12 +35,14 @@ public class Tile : MonoBehaviour
     {
         IsMine = isMine;
     }
-    public void OnClicked()
+    void OnMouseDown()
     {
         Reveal();
     }
     public void Reveal()
     {
+        Debug.Log("Reveal()");
+        transform.Rotate(new Vector3(0, 0, 180));
         if (IsMine)
         {
             Game.End();
