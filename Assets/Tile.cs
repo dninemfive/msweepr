@@ -31,9 +31,9 @@ public class Tile : MonoBehaviour
     public Text Text;
     public enum FlagStatus
     {
-        None,
-        Flagged,
-        Question
+        None = 0,
+        Flagged = 1,
+        Question = 2
     }
     public void Init(int x, int y, bool isMine)
     {
@@ -41,13 +41,23 @@ public class Tile : MonoBehaviour
         Y = y;
         IsMine = isMine;
     }
-    void OnMouseDown()
+    // https://answers.unity.com/questions/1350065/onmousedown-for-right-mouse.html
+    private void OnMouseOver()
     {
-        Reveal();
+        if (revealed) return;
+        if(Input.GetMouseButtonDown(0))
+        {
+            Reveal();
+        }
+        if(Input.GetMouseButtonDown(1))
+        {
+            RotateFlag();
+        }
     }
     public void Reveal()
     {
         if (revealed) return;
+        Text.text = "";
         revealed = true;
         transform.Rotate(new Vector3(0, 0, 180));
         // rotate the text to keep it right-side-up
@@ -66,6 +76,22 @@ public class Tile : MonoBehaviour
         foreach (Tile t in Neighbors)
         {
             t.Reveal();
+        }
+    }
+    public void RotateFlag()
+    {
+        Flag = (FlagStatus)(((int)Flag + 1) % 3);
+        switch (Flag)
+        {
+            case FlagStatus.None:
+                Text.text = "";
+                return;
+            case FlagStatus.Flagged:
+                Text.text = "!";
+                return;
+            case FlagStatus.Question:
+                Text.text = "?";
+                return;
         }
     }
 }
