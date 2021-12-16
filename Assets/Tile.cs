@@ -6,6 +6,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public bool IsMine { get; private set; } = false;
+    private bool revealed = false;
     public IEnumerable<Tile> Neighbors
     {
         get
@@ -41,7 +42,8 @@ public class Tile : MonoBehaviour
     }
     public void Reveal()
     {
-        Debug.Log("Reveal()");
+        if (revealed) return;
+        revealed = true;
         transform.Rotate(new Vector3(0, 0, 180));
         if (IsMine)
         {
@@ -50,7 +52,6 @@ public class Tile : MonoBehaviour
         }
         if(NeighborMineCount > 0)
         {
-            // change texture, include number
             return;
         }
         foreach (Tile t in Neighbors)
