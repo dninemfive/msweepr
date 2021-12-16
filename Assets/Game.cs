@@ -9,6 +9,9 @@ public class Game : MonoBehaviour
     public static GameObject TileObject => Instance._tileObject;
     [SerializeField]
     private GameObject _tileObject;
+    public static Camera Camera => Instance._camera;
+    [SerializeField]
+    private Camera _camera;
     // Start is called before the first frame update
     void Start()
     {

@@ -250,3 +250,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileObject: {fileID: 8356282640548959416, guid: 519ea2b7b07771a418f1c26bbd14a0ee, type: 3}
+  _camera: {fileID: 519420031}
