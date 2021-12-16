@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Board
 {
-    const float CAMERA_SIZE_FACTOR = 10f;
+    const float CAMERA_SIZE_FACTOR = 1.1f;
     private List<List<Tile>> _board = new List<List<Tile>>();
     public IEnumerable<Tile> AllTiles
     {
@@ -45,20 +45,13 @@ public class Board
         pos.x = xDimension / 2.0f - 0.5f;
         pos.y = yDimension / 2.0f - 0.5f;
         Game.Camera.transform.position = pos;
-        // https://answers.unity.com/questions/174002/what-is-the-relationship-between-camera-size-units.html
-        // http://gamedesigntheory.blogspot.com/2010/09/controlling-aspect-ratio-in-unity.html
-        Rect rect = Game.Camera.rect;
-        float aspectRatio = Game.Camera.aspect;
         if (xDimension > yDimension)
         {
-            rect.width = xDimension * CAMERA_SIZE_FACTOR;
-            rect.height = rect.width / aspectRatio;
+            Game.Camera.orthographicSize = xDimension / 2.0f * CAMERA_SIZE_FACTOR;
         }
         else
         {
-            rect.height = yDimension * CAMERA_SIZE_FACTOR;
-            rect.width = rect.height * aspectRatio;
+            Game.Camera.orthographicSize = yDimension / 2.0f * CAMERA_SIZE_FACTOR;
         }
-        Game.Camera.rect = rect;
     }
 }
