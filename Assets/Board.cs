@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 public class Board
-{
-    const float CAMERA_SIZE_FACTOR = 1.1f;
+{    
     private readonly List<List<Tile>> _board = new List<List<Tile>>();
     public IEnumerable<Tile> AllTiles
     {
@@ -64,16 +63,16 @@ public class Board
     public void CenterBoardInCamera(int xDimension, int yDimension)
     {
         Vector3 pos = Game.Camera.transform.position;
-        pos.x = xDimension / 2.0f - 0.5f;
-        pos.y = yDimension / 2.0f - 0.5f;
+        pos.x = xDimension / 2.0f - Game.TileObject.transform.localScale.x / 2.0f;
+        pos.y = yDimension / 2.0f - Game.TileObject.transform.localScale.y / 2.0f;
         Game.Camera.transform.position = pos;
         if (xDimension > yDimension)
         {
-            Game.Camera.orthographicSize = xDimension / 2.0f * CAMERA_SIZE_FACTOR;
+            Game.Camera.orthographicSize = xDimension / 2.0f * Game.CAMERA_SIZE_FACTOR + 2.0f * Game.BORDER_SIZE;
         }
         else
         {
-            Game.Camera.orthographicSize = yDimension / 2.0f * CAMERA_SIZE_FACTOR;
+            Game.Camera.orthographicSize = yDimension / 2.0f * Game.CAMERA_SIZE_FACTOR + 2.0f * Game.BORDER_SIZE;
         }
     }
 }
