@@ -60,19 +60,20 @@ public class Board
             return null;
         }
     }
+    Vector3 TileSize => Game.TileObject.transform.localScale;
     public void CenterBoardInCamera(int xDimension, int yDimension)
     {
         Vector3 pos = Game.Camera.transform.position;
-        pos.x = xDimension / 2.0f - Game.TileObject.transform.localScale.x / 2.0f;
-        pos.y = yDimension / 2.0f - Game.TileObject.transform.localScale.y / 2.0f;
+        pos.x = xDimension / 2.0f - TileSize.x / 2.0f;
+        pos.y = yDimension / 2.0f - TileSize.y / 2.0f;
         Game.Camera.transform.position = pos;
         if (xDimension > yDimension)
         {
-            Game.Camera.orthographicSize = xDimension / 2.0f * Game.CAMERA_SIZE_FACTOR + 2.0f * Game.BORDER_SIZE;
+            Game.Camera.orthographicSize = (xDimension / 2.0f * Game.CAMERA_SIZE_FACTOR) + (2.0f * Game.BORDER_SIZE_FACTOR * TileSize.x);
         }
         else
         {
-            Game.Camera.orthographicSize = yDimension / 2.0f * Game.CAMERA_SIZE_FACTOR + 2.0f * Game.BORDER_SIZE;
+            Game.Camera.orthographicSize = (yDimension / 2.0f * Game.CAMERA_SIZE_FACTOR) + (2.0f * Game.BORDER_SIZE_FACTOR * TileSize.y);
         }
     }
 }

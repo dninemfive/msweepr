@@ -5,7 +5,7 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public const float CAMERA_SIZE_FACTOR = 1f;
-    public const float BORDER_SIZE = 1f;
+    public const float BORDER_SIZE_FACTOR = 1f;
     public static (int x, int y) BoardSize = (80, 45);
     public static int NumMines = 60;
     public static Game Instance = null;
