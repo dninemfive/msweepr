@@ -54,7 +54,7 @@ public class Tile : MonoBehaviour
             RotateFlag();
         }
     }
-    public void Reveal()
+    public void Reveal(bool IsClick = true)
     {
         if (revealed) return;
         Text.text = "";
@@ -65,7 +65,11 @@ public class Tile : MonoBehaviour
         if (IsMine)
         {
             Text.text = "*";
-            Game.End();
+            if (IsClick) Text.color = Color.red;
+            if (!Game.Over)
+            {
+                Game.End();
+            }
             return;
         }
         if(NeighborMineCount > 0)

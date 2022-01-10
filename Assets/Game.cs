@@ -12,6 +12,7 @@ public class Game : MonoBehaviour
     public static Board Board;
     public static System.Random Random = new System.Random();
     public static GameObject TileObject => Instance._tileObject;
+    public static bool Over = false;
     [SerializeField]
     private GameObject _tileObject;
     public static Camera Camera => Instance._camera;
@@ -28,7 +29,6 @@ public class Game : MonoBehaviour
         Instance = this;
         Board = new Board(BoardSize, NumMines);
         CenterBoardInCamera();
-        foreach (Tile t in Board.AllTiles) t.Reveal();
     }
     // Update is called once per frame
     Vector3 TileSize => TileObject.transform.localScale;
@@ -48,5 +48,9 @@ public class Game : MonoBehaviour
             Camera.orthographicSize = ((yDimension / 2.0f * CAMERA_SIZE_FACTOR) + (2.0f * BORDER_SIZE_FACTOR * TileSize.y)) / 2.0f;
         }
     }
-    public static void End() { }
+    public static void End() 
+    {
+        Over = true;
+        foreach (Tile t in Board.AllTiles) t.Reveal(IsClick: false);
+    }
 }
