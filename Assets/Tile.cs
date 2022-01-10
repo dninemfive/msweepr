@@ -79,15 +79,17 @@ public class Tile : MonoBehaviour
             t.Reveal();
         }
     }
-    //                                      1  2     3     4     5     6     7      8
-    //static readonly float[] colorValues = { 0, 0.5f, 0.6f, 0.7f, 0.8f, 0.9f, 0.95f, 1f };
     public static Color TextColor(int numAdjacents)
     {
-        // 50 is a magic number which makes sure the color cycles so adjacent numbers are a bit more distinguishable
-        float h = Mathf.Clamp01((numAdjacents * 110f));
-        float s = numAdjacents % 2 == 0 ? 1f : 0.5f;
-        //float v = colorValues[numAdjacents - 1];
-        return Color.HSVToRGB(h, 1, 1);
+        switch (numAdjacents)
+        {
+            case 1: return new Color(127 / 255f, 0f, 127 / 255f); // purple
+            case 2: return Color.blue;
+            case 3: return new Color(24 / 255f, 89/255f, 21 / 255f); // slightly darker green
+            case 4: return new Color(255 / 255f, 127 / 255f, 0f); // orange
+            case 5: return Color.red;
+            default: return Color.black;
+        }
     }
     public void RotateFlag()
     {
