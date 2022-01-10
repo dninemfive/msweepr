@@ -5,9 +5,9 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public const float CAMERA_SIZE_FACTOR = 1f;
-    public const float BORDER_SIZE_FACTOR = 1f;
+    public const float BORDER_SIZE_FACTOR = 4f;
     public static (int x, int y) BoardSize = (80, 45);
-    public static int NumMines = 60;
+    public static int NumMines = 400;
     public static Game Instance = null;
     public static Board Board;
     public static System.Random Random = new System.Random();
@@ -27,15 +27,25 @@ public class Game : MonoBehaviour
         }
         Instance = this;
         Board = new Board(BoardSize, NumMines);
+        CenterBoardInCamera();
     }
     // Update is called once per frame
-    void Update()
+    Vector3 TileSize => TileObject.transform.localScale;
+    public void CenterBoardInCamera()
     {
-
-    }
-    public static void SetUp()
-    {
-
+        (int xDimension, int yDimension) = BoardSize;
+        Vector3 pos = Camera.transform.position;
+        pos.x = xDimension / 2.0f - TileSize.x / 2.0f;
+        pos.y = yDimension / 2.0f - TileSize.y / 2.0f;
+        Camera.transform.position = pos;
+        if (xDimension > yDimension)
+        {
+            Camera.orthographicSize = ((xDimension / 2.0f * CAMERA_SIZE_FACTOR) + (2.0f * BORDER_SIZE_FACTOR * TileSize.x)) / 2.0f;
+        }
+        else
+        {
+            Camera.orthographicSize = ((yDimension / 2.0f * CAMERA_SIZE_FACTOR) + (2.0f * BORDER_SIZE_FACTOR * TileSize.y)) / 2.0f;
+        }
     }
     public static void End() { }
 }

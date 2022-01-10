@@ -71,6 +71,7 @@ public class Tile : MonoBehaviour
         if(NeighborMineCount > 0)
         {
             Text.text = "" + NeighborMineCount;
+            Text.color = TextColor(NeighborMineCount);
             return;
         }
         foreach (Tile t in Neighbors)
@@ -78,6 +79,7 @@ public class Tile : MonoBehaviour
             t.Reveal();
         }
     }
+    public static Color TextColor(int numAdjacents) => Color.HSVToRGB(Mathf.Clamp(numAdjacents * 32, 0f, 255f), Mathf.Clamp(numAdjacents * 32, 0f, 255f), Mathf.Clamp(numAdjacents * 32, 0f, 255f));
     public void RotateFlag()
     {
         Flag = (FlagStatus)(((int)Flag + 1) % 3);

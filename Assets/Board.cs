@@ -50,7 +50,6 @@ public class Board
                 newTile.Init(i, j, MineCoords.Contains((i, j)));
             }
         }
-        CenterBoardInCamera(x, y);
     }
     public Tile this[int x, int y]
     {
@@ -59,21 +58,5 @@ public class Board
             if ((x >= 0 && x < _board.Count) && (y >= 0 && y < _board[x].Count)) return _board[x][y];
             return null;
         }
-    }
-    Vector3 TileSize => Game.TileObject.transform.localScale;
-    public void CenterBoardInCamera(int xDimension, int yDimension)
-    {
-        Vector3 pos = Game.Camera.transform.position;
-        pos.x = xDimension / 2.0f - TileSize.x / 2.0f;
-        pos.y = yDimension / 2.0f - TileSize.y / 2.0f;
-        Game.Camera.transform.position = pos;
-        if (xDimension > yDimension)
-        {
-            Game.Camera.orthographicSize = (xDimension / 2.0f * Game.CAMERA_SIZE_FACTOR) + (2.0f * Game.BORDER_SIZE_FACTOR * TileSize.x);
-        }
-        else
-        {
-            Game.Camera.orthographicSize = (yDimension / 2.0f * Game.CAMERA_SIZE_FACTOR) + (2.0f * Game.BORDER_SIZE_FACTOR * TileSize.y);
-        }
-    }
+    }    
 }
