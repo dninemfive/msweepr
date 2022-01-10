@@ -81,14 +81,17 @@ public class Tile : MonoBehaviour
     }
     public static Color TextColor(int numAdjacents)
     {
+        // TODO: this set of colors works well with most "abnormal trichromacy" forms of colorblindness (except blue-weak), but largely fails at mono/dichromacy forms.
+        //       not high priority since the numbers are still visible (though the orange is a bit too close to the gray to work super well) and distinct, but color
+        //       settings with colorblind presets would be a good idea.
         switch (numAdjacents)
         {
             case 1: return new Color(127 / 255f, 0f, 127 / 255f); // purple
             case 2: return Color.blue;
             case 3: return new Color(24 / 255f, 89/255f, 21 / 255f); // slightly darker green
             case 4: return new Color(255 / 255f, 127 / 255f, 0f); // orange
-            case 5: return Color.red;
-            default: return Color.black;
+            // tiles with more than four adjacents are rare so i'm too lazy to put together a proper color set for them
+            default: return Color.red;
         }
     }
     public void RotateFlag()
