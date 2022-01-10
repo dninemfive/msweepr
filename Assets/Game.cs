@@ -51,6 +51,7 @@ public class Game : MonoBehaviour
     public static void End() 
     {
         Over = true;
+        // TODO: slowly reveal tiles in a spiralling pattern from the board?
         foreach (Tile t in Board.AllTiles) t.Reveal(IsClick: false);
     }
 }
