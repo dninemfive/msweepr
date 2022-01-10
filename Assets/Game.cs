@@ -7,7 +7,7 @@ public class Game : MonoBehaviour
     public const float CAMERA_SIZE_FACTOR = 1f;
     public const float BORDER_SIZE_FACTOR = 4f;
     public static (int x, int y) BoardSize = (80, 45);
-    public static int NumMines = 400;
+    public static int NumMines = 800;
     public static Game Instance = null;
     public static Board Board;
     public static System.Random Random = new System.Random();
@@ -28,6 +28,7 @@ public class Game : MonoBehaviour
         Instance = this;
         Board = new Board(BoardSize, NumMines);
         CenterBoardInCamera();
+        foreach (Tile t in Board.AllTiles) t.Reveal();
     }
     // Update is called once per frame
     Vector3 TileSize => TileObject.transform.localScale;
